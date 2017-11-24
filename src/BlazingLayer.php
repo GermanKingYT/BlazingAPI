@@ -28,7 +28,8 @@ class BlazingLayer
     {
         $this->token = $token;
         $this->endpoint = 'eu';
-        $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
+        //$this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
+        $this->url = 'http://localhost/github/BlazingAPI/api.php';
     }
 
     /**
@@ -77,8 +78,8 @@ class BlazingLayer
     /**
      * Get servers with filter your chose type.
      *
-     * @param $type
-     * @return $data
+     * @param $type('vps','dedicated','teamspeak')
+     * @return array
      *
      */
     public function getMyServers($type)
