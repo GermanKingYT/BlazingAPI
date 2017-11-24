@@ -17,7 +17,7 @@ class BlazingLayer
         parent::__construct();
         $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v2/';
         $this->token = $token;
-        $this->endpoint = 'eu'
+        $this->endpoint = 'eu';
     }
 
     /**
