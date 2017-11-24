@@ -18,6 +18,12 @@ class BlazingLayer
     public $token;
     public $endpoint;
 
+    /**
+     * Get parameters for connect BlazingLayer API
+     *
+     * @param $token
+     *
+     */
     public function __construct($token)
     {
         $this->token = $token;
@@ -34,7 +40,7 @@ class BlazingLayer
      */
     public function hash($token)
     {
-        $salt = base64_encode(crypt($token, CRYPT_MD5));
+        $salt = base64_encode(md5($token));
         return $salt;
     }
 
@@ -47,17 +53,22 @@ class BlazingLayer
      */
     public function connect($variables)
     {
-        $variables = (is_array($variables)) ? true : false;
+        $postData = '';
+        foreach($variables as $k => $v)
+        {
+            $postData .= $k . '='.$v.'&';
+        }
+        $postData = rtrim($postData, '&');
         if($variables):
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $this->url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $variables);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token:'.$this->hash($this->token).''));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, count($postData));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token: '.$this->hash($this->token)));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($ch);
             curl_close($ch);
-            return $data;
+            return json_decode($data, true);
         else:
             return false;
         endif;
@@ -72,9 +83,9 @@ class BlazingLayer
      */
     public function getMyServers($type)
     {
-        $data = $this->connect(array('get' => 'myservers', 'type' => $type));
         $check = (in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
         if($check):
+            $data = $this->connect(array('get' => 'myservers', 'type' => $type));
             return $data;
         else:
             return false;

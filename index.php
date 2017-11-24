@@ -9,9 +9,9 @@
 require_once('src/BlazingLayer.php');
 
 try {
-    $api = new BlazingLayer('YOUR PRIVATE TOKEN');
+    $api = new BlazingLayer('TEST');
     $my = $api->getMyServers('vps');
-    echo $my;
+    echo $my['data']['token'];
 } catch (Exception $e) {
     print_r($e->getMessage());
 }
