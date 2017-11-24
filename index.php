@@ -9,7 +9,7 @@
 require_once('BlazingLayer.php');
 
 try {
-    //$api = new BlazingLayer('YOUR PRIVATE TOKEN');
+    $api = new BlazingLayer('YOUR PRIVATE TOKEN');
 } catch (Exception $e) {
     print_r($e->getMessage());
 }

@@ -18,7 +18,7 @@ class BlazingLayer
     public $token;
     public $endpoint;
 
-    function __construct($token)
+    public function __construct($token)
     {
         parent::__construct();
         $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
