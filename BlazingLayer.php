@@ -18,12 +18,26 @@ class BlazingLayer
         $this->token = $token;
     }
 
+    /**
+     * Token sends to the server with encrypting.
+     *
+     * @param $token
+     * @return $salt
+     *
+     */
     public function hash($token)
     {
         $salt = base64_encode(crypt($token));
         return $salt;
     }
 
+    /**
+     * Connect to BlazingLayer API with curl.
+     *
+     * @param $variables
+     * @return $data
+     *
+     */
     public function connect($variables)
     {
         $variables = (is_array($variables)) ? true : false;
@@ -32,7 +46,7 @@ class BlazingLayer
             curl_setopt($ch, CURLOPT_URL, $this->url);
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $variables);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token:'.$this->token.''));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token:'.$this->hash($this->token).''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $data = curl_exec($ch);
             curl_close($ch);
@@ -42,6 +56,13 @@ class BlazingLayer
         endif;
     }
 
+    /**
+     * Get servers with filter your chose type.
+     *
+     * @param $type
+     * @return $data
+     *
+     */
     public function getMyServers($type)
     {
         $data = $this->connect(array('get' => 'myservers', 'type' => $type));
