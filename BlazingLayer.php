@@ -10,12 +10,14 @@ class BlazingLayer
 {
     public $url;
     public $token;
+    public $endpoint;
 
     function __construct($token)
     {
         parent::__construct();
-        $this->url = 'https://api.blazinglayer.co.uk/v2/';
+        $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v2/';
         $this->token = $token;
+        $this->endpoint = 'eu'
     }
 
     /**
