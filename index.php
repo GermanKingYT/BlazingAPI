@@ -6,4 +6,10 @@
  * Time: 08:03
  */
 
-echo 'hello world';
+require_once('BlazingLayer.php');
+
+try {
+    //$api = new BlazingLayer('YOUR PRIVATE TOKEN');
+} catch (Exception $e) {
+    print_r($e->getMessage());
+}

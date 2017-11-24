@@ -82,9 +82,3 @@ class BlazingLayer
         endif;
     }
 }
-
-try {
-    //$api = new BlazingLayer('YOUR PRIVATE TOKEN');
-} catch (Exception $e) {
-    print_r($e->getMessage());
-}
