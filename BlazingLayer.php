@@ -34,7 +34,7 @@ class BlazingLayer
      */
     public function hash($token)
     {
-        $salt = base64_encode(crypt($token));
+        $salt = base64_encode(crypt($token, CRYPT_MD5));
         return $salt;
     }
 
