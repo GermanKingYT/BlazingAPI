@@ -11,11 +11,11 @@ class BlazingLayer
     public $url;
     public $token;
 
-    function __construct()
+    function __construct($token)
     {
         parent::__construct();
         $this->url = 'https://api.blazinglayer.co.uk/v2/';
-        $this->token = 'YOUR PRIVATE TOKEN';
+        $this->token = $token;
     }
 
     public function hash($token)
@@ -31,7 +31,8 @@ class BlazingLayer
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $this->url);
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,$variables);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $variables);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token:'.$this->token.''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $data = curl_exec($ch);
             curl_close($ch);
@@ -40,4 +41,17 @@ class BlazingLayer
             return false;
         endif;
     }
+
+    public function getMyServers($type)
+    {
+        $data = $this->connect(array('get' => 'myservers', 'type' => $type));
+        $check = (in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        if($check):
+            return $data;
+        else:
+            return false;
+        endif;
+    }
 }
+
+//$api = new BlazingLayer('YOUR PRIVATE TOKEN');
