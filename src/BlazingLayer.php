@@ -6,12 +6,6 @@
  * Time: 08:07
  */
 
-
-// UNDER DEVELOPMENT! //
-// UNDER DEVELOPMENT! //
-// UNDER DEVELOPMENT! //
-
-
 class BlazingLayer
 {
     public $url;
@@ -19,7 +13,7 @@ class BlazingLayer
     public $endpoint;
 
     /**
-     * Get parameters for connect BlazingLayer API
+     * Get variables for connect BlazingLayer API
      *
      * @param $token
      *
