@@ -6,7 +6,7 @@
  * Time: 08:04
  */
 
-require_once('BlazingLayer.php');
+require_once('src/BlazingLayer.php');
 
 try {
     $api = new BlazingLayer('YOUR PRIVATE TOKEN');
