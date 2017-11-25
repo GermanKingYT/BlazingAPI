@@ -15,3 +15,15 @@ try {
 } catch (Exception $e) {
     print_r($e->getMessage());
 }
+
+
+public function power($id, $action)
+{
+    $check = (in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+    if($check):
+        $data = $this->connect(array('get' => 'myservers', 'type' => $type), $this->url.$id.'/'.$action);
+        return $data;
+    else:
+        return false;
+    endif;
+}

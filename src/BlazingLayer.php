@@ -11,9 +11,10 @@ class BlazingLayer
     public $url;
     public $token;
     public $endpoint;
+    public $version;
 
     /**
-     * Get variables for connect BlazingLayer API
+     * Get variables for connect BlazingLayer API.
      *
      * @param $token
      *
@@ -23,19 +24,7 @@ class BlazingLayer
         $this->token = $token;
         $this->endpoint = 'eu';
         $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
-    }
-
-    /**
-     * Token sends to the server with encrypting.
-     *
-     * @param $token
-     * @return $salt
-     *
-     */
-    public function hash($token)
-    {
-        $salt = base64_encode(md5($token));
-        return $salt;
+        $this->version = '2.0.3';
     }
 
     /**
@@ -45,7 +34,7 @@ class BlazingLayer
      * @return $data
      *
      */
-    public function connect($variables)
+    public function connect($variables, $url = null)
     {
         $postData = '';
         foreach($variables as $k => $v)
@@ -55,10 +44,10 @@ class BlazingLayer
         $postData = rtrim($postData, '&');
         if($variables):
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $this->url);
+            curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, count($postData));
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token: '.$this->hash($this->token)));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token: '.$this->token, 'Version: '.$this->version));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($ch);
             curl_close($ch);
@@ -77,9 +66,45 @@ class BlazingLayer
      */
     public function getMyServers($type)
     {
-        $check = (in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        $check = (ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
         if($check):
-            $data = $this->connect(array('get' => 'myservers', 'type' => $type));
+            $data = $this->connect(array('type' => $type), $this->url.''.$type.'/myservers');
+            return $data;
+        else:
+            return false;
+        endif;
+    }
+
+    /**
+     * Manage server power.
+     *
+     * @param $id, $type, $action
+     * @return array
+     *
+     */
+    public function power($id, $type, $action)
+    {
+        $check = (is_numeric($id) && ctype_alnum($action) && ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        if($check):
+            $data = $this->connect(array('id' => $id, 'power' => $action), $this->url.''.$type.'/power');
+            return $data;
+        else:
+            return false;
+        endif;
+    }
+
+    /**
+     * Get server status & information.
+     *
+     * @param $id, $type
+     * @return array
+     *
+     */
+    public function status($id, $type)
+    {
+        $check = (is_numeric($id) && ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        if($check):
+            $data = $this->connect(array('id' => $id), $this->url.''.$type.'/status');
             return $data;
         else:
             return false;
