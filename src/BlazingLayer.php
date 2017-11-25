@@ -13,9 +13,36 @@
 
 class BlazingLayer
 {
+    /**
+     * API Url
+     *
+     * @var
+     *
+     */
     public $url;
+
+    /**
+     * Authentication Token
+     *
+     * @var
+     *
+     */
     public $token;
+
+    /**
+     * API Endpoint
+     *
+     * @var
+     *
+     */
     public $endpoint;
+
+    /**
+     * Framework Version
+     *
+     * @var
+     *
+     */
     public $version;
 
     /**
