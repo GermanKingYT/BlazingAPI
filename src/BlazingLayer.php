@@ -52,11 +52,11 @@ class BlazingLayer
      * @param $endpoint
      *
      */
-    public function __construct($token, $endpoint = 'eu')
+    public function __construct($token, $endpoint = 'eu', $version = '1.0.3')
     {
         $this->token = $token;
         $this->endpoint = $endpoint;
-        $this->version = '2.0.3';
+        $this->version = $version;
         $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v'.substr($this->version, 0, 1).'/';
     }
 
