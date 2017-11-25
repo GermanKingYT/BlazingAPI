@@ -47,7 +47,7 @@ class BlazingLayer
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, count($postData));
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Token: '.$this->token, 'Version: '.$this->version));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authentication: '.$this->token, 'Version: '.$this->version));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($ch);
             curl_close($ch);
@@ -84,7 +84,7 @@ class BlazingLayer
      */
     public function power($id, $type, $action)
     {
-        $check = (is_numeric($id) && ctype_alnum($action) && ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        $check = (is_numeric($id) && ctype_alnum($type) && ctype_alnum($action) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
         if($check):
             $data = $this->connect(array('id' => $id, 'power' => $action), $this->url.''.$type.'/power');
             return $data;
@@ -96,15 +96,15 @@ class BlazingLayer
     /**
      * Get server status & information.
      *
-     * @param $id, $type
+     * @param $id, $type, $graph
      * @return array
      *
      */
-    public function status($id, $type)
+    public function status($id, $type, $graph = null)
     {
         $check = (is_numeric($id) && ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
         if($check):
-            $data = $this->connect(array('id' => $id), $this->url.''.$type.'/status');
+            $data = $this->connect(array('id' => $id, 'graph' => $graph), $this->url.''.$type.'/status');
             return $data;
         else:
             return false;
