@@ -117,7 +117,7 @@ class BlazingLayer
      */
     public function power($id, $type, $action)
     {
-        $check = (is_numeric($id) && ctype_alnum($type) && ctype_alnum($action) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
+        $check = (is_numeric($id) && ctype_alnum($type) && ctype_alnum($action) && in_array($type, array('vps', 'dedicated', 'teamspeak')) && in_array($action, array('off', 'on', 'reboot'))) ? true : false;
         if($check):
             $data = $this->connect(array('id' => $id, 'power' => $action), $this->url.''.$type.'/power');
             return $data;
