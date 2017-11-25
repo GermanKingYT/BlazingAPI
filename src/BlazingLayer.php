@@ -38,7 +38,7 @@ class BlazingLayer
     public $endpoint;
 
     /**
-     * Framework Version
+     * Class Version
      *
      * @var
      *
