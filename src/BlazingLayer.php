@@ -56,8 +56,8 @@ class BlazingLayer
     {
         $this->token = $token;
         $this->endpoint = $endpoint;
-        $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
         $this->version = '2.0.3';
+        $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v'.substr($this->version, 0, 1).'/';
     }
 
     /**
