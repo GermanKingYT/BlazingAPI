@@ -52,7 +52,7 @@ class BlazingLayer
      * @param $endpoint
      *
      */
-    public function __construct($token, $endpoint)
+    public function __construct($token, $endpoint = 'eu')
     {
         $this->token = $token;
         $this->endpoint = $endpoint;
