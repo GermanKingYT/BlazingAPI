@@ -1,9 +1,14 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: XARON
- * Date: 24.11.2017
- * Time: 08:07
+ * Class BlazingLayer
+ *
+ * @author Uğur Pekesen
+ *         @web https://www.blazinglayer.co.uk/
+ *         @date 24 November 2017
+ * @author Ege Yıldız
+ *         @web https://www.blazinglayer.co.uk/
+ *         @update 25 November 2017
  */
 
 class BlazingLayer
@@ -64,7 +69,7 @@ class BlazingLayer
      * @return array
      *
      */
-    public function getMyServers($type)
+    public function myservers($type)
     {
         $check = (ctype_alnum($type) && in_array($type, array('vps', 'dedicated', 'teamspeak'))) ? true : false;
         if($check):

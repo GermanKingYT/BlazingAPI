@@ -10,7 +10,7 @@ require_once('src/BlazingLayer.php');
 
 try {
     $api = new BlazingLayer('TEST');
-    $my = $api->getMyServers('vps');
+    $my = $api->myservers('vps');
     echo $my['data']['token'];
 } catch (Exception $e) {
     print_r($e->getMessage());
