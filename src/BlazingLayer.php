@@ -46,15 +46,16 @@ class BlazingLayer
     public $version;
 
     /**
-     * Get variables for connect BlazingLayer API.
+     * BlazingLayer Constructor
      *
      * @param $token
+     * @param $endpoint
      *
      */
-    public function __construct($token)
+    public function __construct($token, $endpoint)
     {
         $this->token = $token;
-        $this->endpoint = 'eu';
+        $this->endpoint = $endpoint;
         $this->url = 'https://'.$this->endpoint.'api.blazinglayer.co.uk/v1/';
         $this->version = '2.0.3';
     }
